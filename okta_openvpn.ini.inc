@@ -14,6 +14,8 @@ Token:
 ##   against Okta as 'first.last@example.com'.
 ## (Example below)
 # UsernameSuffix: example.com
+## Do not use CN from client-side SSL certificates as usernames
+# DontUseCNAsUsernames: True
 ## Do not require usernames to come from client-side SSL certificates.
 ## NOT RECCOMMENDED FOR PRODUCTION ENVIRONMENTS
 ## (Example below)

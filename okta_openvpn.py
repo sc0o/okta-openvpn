@@ -297,6 +297,12 @@ class OktaOpenVPNValidator(object):
                         'mfa_push_delay_secs': cfg.get('OktaAPI',
                                                        'MFAPushDelaySeconds'),
                         }
+                    dont_use_cn_as_usernames = cfg.get(
+                        'OktaAPI',
+                        'DontUseCNAsUsernames'
+                    )
+                    if dont_use_cn_as_usernames == 'True':
+                        self.dont_use_cn_as_usernames = True
                     always_trust_username = cfg.get(
                         'OktaAPI',
                         'AllowUntrustedUsers')
@@ -329,7 +335,7 @@ class OktaOpenVPNValidator(object):
         #   then self.username_trusted will be False
         if username is not None:
             self.username_trusted = True
-        else:
+        if username is None or self.dont_use_cn_as_usernames:
             # This is set according to what the VPN client has sent us
             username = self.env.get('username')
         if self.always_trust_username:
